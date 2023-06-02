@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.0;net45;netstandard2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Copyright>Crawlbase 2023</Copyright>
+    <PackageId>CrawlbaseAPI</PackageId>
+    <Title>Crawlbase API</Title>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <PackageIconUrl />
+    <PackageProjectUrl>https://crawlbase.com/</PackageProjectUrl>
+    <PackageTags>scrape, crawl, crawling, scraping, web scrape, web scraping, web crawl, web crawling</PackageTags>
+    <Description>.NET library for scraping and crawling websites using the Crawlbase API.</Description>
+    <PackageReleaseNotes>Supports
+- Crawling API
+- Scraper API
+- Leads API
+- Screenshots API
+- Storage API</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/crawlbase-source/crawlbase-net</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+</Project>

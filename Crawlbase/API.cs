@@ -161,7 +161,9 @@ namespace Crawlbase
             var optionList = new List<string>();
             foreach (var key in options.Keys)
             {
-                optionList.Add($"{key}={options[key]}");
+                object value = options[key];
+                value = HandleBooleanValue(value);
+                optionList.Add($"{key}={value}");
             }
             var query = string.Join("&", optionList.ToArray());
             uriBuilder.Query = query;
@@ -186,7 +188,9 @@ namespace Crawlbase
             var dataList = new List<string>();
             foreach (var key in data.Keys)
             {
-                var value = Uri.EscapeDataString(data[key].ToString());
+                object value = data[key];
+                value = HandleBooleanValue(value);
+                value = Uri.EscapeDataString(value.ToString());
                 dataList.Add($"{key}={value}");
             }
             var postData = string.Join("&", dataList.ToArray());
@@ -307,6 +311,16 @@ namespace Crawlbase
                 var match = rx.Match(StorageURL);
                 try { StorageRID = match.Groups[1].Value; } catch { }
             }
+        }
+
+        private object HandleBooleanValue(object value)
+        {
+            if (value.GetType() == typeof(Boolean))
+            {
+                value = value.ToString().ToLower();
+            }
+
+            return value;
         }
 
         #endregion

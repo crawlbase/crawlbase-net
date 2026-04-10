@@ -369,4 +369,4 @@ Everyone interacting in the Crawlbase project’s codebases, issue trackers, cha
 
 ---
 
-Copyright 2025 Crawlbase
+Copyright 2026 Crawlbase

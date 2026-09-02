@@ -142,6 +142,8 @@ Console.WriteLine(api.CrawlbaseStatus);
 
 ## Scraper API usage
 
+> ⚠️ **Deprecated.** The standalone Scraper API has been closed to new sign-ups since October 1, 2024. Existing integrations continue to work and no shutdown is scheduled, but new code should use the Crawling API with the `scraper` parameter instead (same scrapers, simpler endpoint, more parameters). The class below stays available for backward compatibility. See the [scrapers documentation](https://crawlbase.com/docs/scrapers).
+
 Initialize the Scraper API using your normal token and call the `Get` method.
 
 ```csharp
@@ -167,6 +169,8 @@ try {
 ```
 
 ## Leads API usage
+
+> ⚠️ **Deprecated.** The Leads API has been closed to new sign-ups since October 1, 2024. Existing integrations continue to work and no shutdown is scheduled. There is no direct replacement; for similar workflows use the Crawling API with the [`email-extractor`](https://crawlbase.com/docs/scrapers/email-extractor) scraper (any URL → emails) or the [`google-serp`](https://crawlbase.com/docs/scrapers/google-serp) scraper for domain-scoped contact discovery. The class below stays available for backward compatibility.
 
 Initialize with your Leads API token and call the `Get` method.
 
@@ -197,6 +201,8 @@ try {
 If you have questions or need help using the library, please open an issue or [contact us](https://crawlbase.com/contact).
 
 ## Screenshots API usage
+
+> ⚠️ **Deprecated.** The standalone Screenshots API has been closed to new sign-ups since November 1, 2024. Existing integrations continue to work and no shutdown is scheduled, but new code should use the Crawling API with the `screenshot=true` parameter — same JS-rendering pipeline, screenshot parameters on the standard endpoint. The class below stays available for backward compatibility. See the [Crawling API screenshots section](https://crawlbase.com/docs/crawling-api#screenshots).
 
 Initialize with your Screenshots API token and call the `Get` method.
 
@@ -236,6 +242,25 @@ If you want to convert the body to bytes then you have to do the following:
 ```csharp
 byte[] bytes = Convert.FromBase64String(screenshots_api.Body);
 ```
+
+## Smart AI Proxy usage
+
+The [Smart AI Proxy](https://crawlbase.com/docs/smart-proxy) is a standard rotating HTTP(S) proxy endpoint, so it needs no SDK: point any HTTP client at `smartproxy.crawlbase.com:8012` (HTTP) or `smartproxy.crawlbase.com:8013` (HTTPS) with your token as the proxy username and an empty password. Crawlbase handles proxy rotation, retries and anti-bot bypass on its side.
+
+```csharp
+var handler = new HttpClientHandler
+{
+    Proxy = new WebProxy("http://smartproxy.crawlbase.com:8012")
+    {
+        Credentials = new NetworkCredential("YOUR_TOKEN", "")
+    },
+    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+};
+using var client = new HttpClient(handler);
+Console.WriteLine(await client.GetStringAsync("https://httpbin.org/ip"));
+```
+
+Note: the proxy re-signs HTTPS traffic, so certificate verification must be disabled on the client (as in the example). See the [Smart AI Proxy documentation](https://crawlbase.com/docs/smart-proxy) for all options.
 
 ## Storage API usage
 
